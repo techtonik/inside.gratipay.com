@@ -1,0 +1,16 @@
+nav_title="Update Finances"
+[---]
+[---] text/html
+
+We post monthly [financial statements](/appendices/finances). These come out of
+our book-keeping software, Xero. The finances appendix is designed to work
+automatically based on files on the filesystem in this repo
+(inside.gratipay.com). Here are the two sorts of files you can add:
+
+```
+/www/appendices/finances/budgets/$year-$month-$day.pdf
+/www/appendices/finances/reports/$year/$year-$month.$report-name.pdf
+```
+
+The former will be listed under the "Budgets" heading for the relevant year,
+and the latter under "Reports."
