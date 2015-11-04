@@ -76,7 +76,7 @@ for filename in available_reports:
         {% if reports_by_month[month] %}
         <ul>
             {% for report in reports_by_month[month] %}
-            <li><a href="/reports/{{ year }}/{{ report.filename }}">
+            <li><a href="../reports/{{ year }}/{{ report.filename }}">
                 <img src="/assets/{{ report.ext }}.png"> {{ report.name }}
             </a></li>
             {% endfor %}
