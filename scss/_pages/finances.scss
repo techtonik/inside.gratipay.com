@@ -5,9 +5,21 @@
     }
     td {
         vertical-align: top;
-        padding: 10px 10px 10px 0;
-        li:last-child {
-            margin-bottom: 0;
+        padding: 10px 20px 0 0;
+        li {
+            list-style: none;
+            margin: 0;
+            padding: 0 0 10px 0;
+            img {
+                height: 18px;
+                float: left;
+                padding-right: 5px;
+                position: relative;
+                top: -1px;
+            }
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
     }
     .year-nav {
