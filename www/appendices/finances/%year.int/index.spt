@@ -15,7 +15,7 @@ nav_title = 'Finances'
 year = request.path['year']
 assert 2100 > year > 2000, year
 
-available_years = reversed(sorted(os.listdir(reports_dir)))
+available_years = map(int, reversed(sorted(os.listdir(reports_dir))))
 available_months = calendar.month_name[:0:-1]
 available_budgets = reversed(sorted(os.listdir(budgets_dir)))
 
@@ -44,17 +44,16 @@ for filename in available_reports:
 [---] text/html via jinja2
 {% extends "templates/page.html" %}
 {% block content %}
+<div class="finances">
 
-<h2>Available Years</h2>
-
-<ul>
-    {% for year in available_years %}
-    <li><a href="../{{ year }}/">{{ year }}</a></li>
+<ul class="year-nav">
+    {% for y in available_years %}
+    <li><a href="../{{ y }}/"{% if y == year %} class="selected"{% endif %}>{{ y }}</a></li>
     {% endfor %}
 </ul>
 
 
-<h2>Budgets</h2>
+<h2 style="clear: both;">Budgets</h2>
 
 {% if budgets_this_year %}
 <ul>
@@ -69,7 +68,7 @@ for filename in available_reports:
 
 <h2>Reports</h2>
 
-<table class="finances">
+<table>
 {% for month in available_months %}
 <tr>
     <td>{{ month }}</td>
@@ -91,4 +90,5 @@ for filename in available_reports:
 {% endfor %}
 </table>
 
+</div>
 {% endblock %}

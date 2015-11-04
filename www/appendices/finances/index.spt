@@ -1,4 +1,5 @@
 nav_title = 'Finances'
+import datetime
 [---]
-request.redirect('./2015')
+request.redirect('./{}/'.format(datetime.datetime.today().year))
 [---] text/html via markdown

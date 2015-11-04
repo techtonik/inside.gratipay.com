@@ -10,4 +10,35 @@
             margin-bottom: 0;
         }
     }
+    .year-nav {
+        line-height: 100%;
+        display: block;
+        position: relative;
+        top: -20px;
+        margin-bottom: 20px;
+        li {
+            display: inline;
+            margin: 0;
+            float: left;
+            padding: 0 5px;
+            &:first-child { padding-left: 0; }
+            &:last-child { padding-right: 0; }
+            a {
+                font: normal 14px/14px $ideal;
+                height: 24px;
+                display: inline-block;
+                padding: 5px 0;
+                margin-bottom: 5px;
+                color: $gray;
+                &.selected {
+                    padding-bottom: 3px;
+                    border-bottom: 2px solid $green;
+                    font-weight: bold;
+                }
+                &:hover {
+                    background: transparentize($gold, 0.8);
+                }
+            }
+        }
+    }
 }
