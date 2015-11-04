@@ -1,0 +1,4 @@
+nav_title = 'Finances'
+[---]
+request.redirect('./2015')
+[---] text/html via markdown

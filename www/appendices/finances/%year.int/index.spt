@@ -1,0 +1,94 @@
+import re
+import os
+import calendar
+import datetime
+from collections import defaultdict, namedtuple
+
+Report = namedtuple('Report', ['name', 'filename', 'ext'])
+
+current_dir = os.path.dirname(__file__)
+reports_dir = os.path.join(current_dir, '..', 'reports')
+budgets_dir = os.path.join(current_dir, '..', 'budgets')
+
+nav_title = 'Finances'
+[---]
+year = request.path['year']
+assert 2100 > year > 2000, year
+
+available_years = reversed(sorted(os.listdir(reports_dir)))
+available_months = calendar.month_name[:0:-1]
+available_budgets = reversed(sorted(os.listdir(budgets_dir)))
+
+today = datetime.datetime.today()
+if year == today.year:
+    available_months = available_months[-today.month+1:]
+elif year == 2012:
+    available_months = available_months[:-5]
+
+budgets_this_year = [b for b in available_budgets if b.startswith(str(year))]
+def format_budget_date(filename):
+    date = filename.split('.')[0]
+    year, month, day = map(int, date.split('-'))
+    return '{} {}'.format(calendar.month_name[month], day)
+
+reports_by_month = defaultdict(list)
+available_reports = sorted(os.listdir(os.path.join(reports_dir, str(year))))
+for filename in available_reports:
+    '2015-10.balance-sheet.pdf'  # e.g.
+    date, namey_thing, ext = filename.split('.')
+    year, month = map(int, date.split('-'))
+    name = namey_thing.replace('-', ' ').title()
+    report = Report(name, filename, ext)
+    reports_by_month[calendar.month_name[month]].append(report)
+
+[---] text/html via jinja2
+{% extends "templates/page.html" %}
+{% block content %}
+
+<h2>Available Years</h2>
+
+<ul>
+    {% for year in available_years %}
+    <li><a href="../{{ year }}/">{{ year }}</a></li>
+    {% endfor %}
+</ul>
+
+
+<h2>Budgets</h2>
+
+{% if budgets_this_year %}
+<ul>
+    {% for filename in budgets_this_year %}
+    <li><a href="../budgets/{{ filename }}">{{ format_budget_date(filename) }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p><i>No budgets this year.</i></p>
+{% endif %}
+
+
+<h2>Reports</h2>
+
+<table class="finances">
+{% for month in available_months %}
+<tr>
+    <td>{{ month }}</td>
+    <td>
+        {% if reports_by_month[month] %}
+        <ul>
+            {% for report in reports_by_month[month] %}
+            <li><a href="/reports/{{ year }}/{{ report.filename }}">{{ report.name }}</a>
+                ({{ report.ext }})</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <ul>
+            <li><i>No reports for this month.</i></li>
+        </ul>
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}
