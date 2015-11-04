@@ -83,7 +83,7 @@ for filename in available_reports:
         </ul>
         {% else %}
         <ul>
-            <li><i>No reports for this month.</i></li>
+            <li><i>No reports this month.</i></li>
         </ul>
         {% endif %}
     </td>
