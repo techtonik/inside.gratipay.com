@@ -1,2 +1,3 @@
-# This file is stuff required by Heroku 
+# This file is used by Heroku
+
 web: python startapp.py --port=$PORT
