@@ -1,5 +1,18 @@
-# This is Heroku file used to choose building enviroment
+# This is Heroku file used by Multi buildpack to choose building
+# enviroment. The buildpack is patched to support comments. See
+# https://devcenter.heroku.com/articles/third-party-buildpacks
+# for more info.
 #
-# https://github.com/techtonik/heroku-buildpack-multi.git
+# To setup Heroku, create new application without specifying its
+# type (don't choose Python). Then add BUILDPACK_URL variable:
+# 
+# BUILDPACK_URL=https://github.com/techtonik/heroku-buildpack-multi.git
+# 
+# This URL will change when/if
+# https://github.com/heroku/heroku-buildpack-multi/pull/8 is merged.
 
+# We use patched Python buildpack that installs vendorized
+# dependencies from project's /vendor directory.
 https://github.com/techtonik/heroku-buildpack-python.git
+# This may ot may not be fixed in official buildpack.
+# https://github.com/heroku/heroku-buildpack-python/issues/261
